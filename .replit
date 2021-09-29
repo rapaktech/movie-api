@@ -1,0 +1,2 @@
+language = "html"
+run = "node script.js"
