@@ -33,6 +33,10 @@ class User {
     this.movies = newListOfMovies;
   }
 
+  get getUserInfo () {
+    return this;
+  }
+
   get allUserMovies () {
     return this.movies;
   }
@@ -49,10 +53,6 @@ class Movie {
     this.yearOfRelease = year_of_release;
     this.rentalPrice = rental_price;
     this.rentIds = [];
-  }
-
-  deleteMovie () {
-    delete this;
   }
   
   get getMovie () {
@@ -76,6 +76,41 @@ function addNewUser (member_id, surname, firstname, address, phone_no, email) {
   member_id++;
 }
 
+
+// function to get a single movie by id
+function getMovie (movieId) {
+  let movie;
+  Movies.forEach(function (item) {
+    if (item.id == movieId) {
+      movie = item.getMovie;
+    }
+  });
+
+  return movie;
+}
+
+// function to get a single user
+function getUser (userId) {
+  let user;
+  Users.forEach(function (item) {
+    if (item.id == userId) {
+      user = item.getUserInfo;
+    }
+  });
+
+  return user;
+}
+
+// function that edits a user
+function editUser (userId, property, newValue) {
+  Users.map(user => {
+    if (user.id == userId && property != "id") {
+      if (user.hasOwnProperty(property)) {
+        user[property] = newValue;
+      }
+    }
+  })
+}
 
 // function that helps rent a movie
 function rentMovie (userId, movieId) {
@@ -111,6 +146,17 @@ function returnMovie (userId, movieId) {
   });
 }
 
+// function that edits a movie in the store
+function editMovie (movieId, property, newValue) {
+  Movies.map(movie => {
+    if (movie.id == movieId && property != "id") {
+      if (movie.hasOwnProperty(property)) {
+        movie[property] = newValue;
+      }
+    }
+  })
+}
+
 // function that deletes the movies in the store
 function removeMovie (movieId) {
   let movie;
@@ -136,11 +182,22 @@ addNewMovie(movieCount, "The Social Network", "Columbia Pictures", "David Finche
 
 addNewUser(userCount, "Ezesinachi", "Jim", "4131 Faber Drive", 8164990885, "ezesinachijim@gmail.com");
 
+console.log(getMovie(0));
+console.log(getUser(0));
+
+editUser(0, "address", "4010 Sunrise Avenue");
+console.log(Movies);
+console.log(Users);
+
 rentMovie(0, 0);
 console.log(Movies);
 console.log(Users);
 
 returnMovie(0, 0);
+console.log(Movies);
+console.log(Users);
+
+editMovie(0, "rating", 4.5);
 console.log(Movies);
 console.log(Users);
 
